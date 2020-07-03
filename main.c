@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
                 result_float = freemanNetworkCentrality(argv[2]);
                 printf("the Freeman's Network Centrality is %f\n", result_float);
             } else if (strcmp(argv[4], "closeness") == 0) {
-                temp = (int)(argv[5] - '0');
+                temp = (int)(*argv[5] - '0');
                 result_float = closenessCentrality(argv[2], temp);
                 printf("the Closeness Centrality is %f\n", result_float);
             } else {
