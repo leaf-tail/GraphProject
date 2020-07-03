@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
                 printf("%s\n", SunTou[i]);
             }
         }
-    } else if (argc == 5) {
+    } else if (argc == 5 || argc == 6) {
         if (strcmp(argv[3], "-s") == 0 || strcmp(argv[3], "--stats")== 0) {
             op = 2; // edges, vertices, freeman, closeness
         } 
@@ -49,18 +49,17 @@ int main(int argc, char *argv[])
         case 2:
             if (strcmp(argv[4], "edges") == 0) {
                 result_int = numberOfEdges(argv[2]);
-                printf("%d\n", result_int);
+                printf("the number of edges is %d\n", result_int);
             } else if (strcmp(argv[4], "vertices") == 0) {
                 result_int = numberOfVertices(argv[2]);
-                printf("%d\n", result_int);
+                printf("the number of vertices is %d\n", result_int);
             } else if (strcmp(argv[4], "freeman") == 0) {
                 result_float = freemanNetworkCentrality(argv[2]);
-                printf("%f\n", result_float);
+                printf("the Freeman's Network Centrality is %f\n", result_float);
             } else if (strcmp(argv[4], "closeness") == 0) {
-                printf("input the number of node:");
-                scanf("%d", &temp);
+                temp = (int)(argv[5] - '0');
                 result_float = closenessCentrality(argv[2], temp);
-                printf("%f\n", result_float);
+                printf("the Closeness Centrality is %f\n", result_float);
             } else {
                 printf("Not Found The Command.\n");
             }

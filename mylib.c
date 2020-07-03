@@ -14,6 +14,7 @@ int strcmp(const char *s1, const char *s2)
 
 void print_help_order()
 {
+    printf(" -j     you will get a Suntoujun~\n\n");
     printf("    -g/--graph FILE_PATH \n");
     printf("                         -s/--stats edges\n\n");
     printf("        print the edges of a graph.\n\n");
