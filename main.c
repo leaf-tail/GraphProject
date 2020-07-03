@@ -12,6 +12,8 @@ int main(int argc, char *argv[])
     int   result_int;
     float result_float;
     char *result_char;
+    
+    //²âÊÔ 
     /*for (int i = 0; i < 19; i++) {
         printf("%s\n", SunTou[i]);
     }*/
