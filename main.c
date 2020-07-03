@@ -1,6 +1,7 @@
 #include "search.h"
 #include "stats.h"
 #include "draw.h"
+#include "mylib.h" 
 #include <stdio.h>
 #include <stdlib.h>
 
