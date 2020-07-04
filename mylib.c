@@ -31,3 +31,19 @@ void print_help_order()
     printf("                                    Dijkstra\n\n");
     return; 
 }
+
+void* my_memset(void *s, int c, int n)
+{
+    if (s == NULL || n < 0) {
+        return NULL;
+    }
+    char *ps = (char *)s;
+    while (n > 0) {
+        *ps = (char)c;
+        ps++;
+        n--;
+    }
+    return s;
+}
+
+
