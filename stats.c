@@ -6,11 +6,12 @@
 
 
 
-//----ÁÚ½Ó±íµÄ»ù±¾ÔËËãËã·¨------------------------------------
-AdjGraph* CreateAdj(char name[])    //½¨Á¢ÁÚ½Ó±í
+
+//----é‚»æ¥è¡¨çš„åŸºæœ¬è¿ç®—ç®—æ³•------------------------------------
+AdjGraph* CreateAdj(char name[])    //å»ºç«‹é‚»æ¥è¡¨
 {
-    AdjGraph *G;
-	FILE     *fp;
+	AdjGraph* G;
+	FILE* fp;
 	if (!(fp = fopen(name, "r"))) {
 		printf("Can not open %s\n", name);
 		exit(0);
@@ -19,23 +20,25 @@ AdjGraph* CreateAdj(char name[])    //½¨Á¢ÁÚ½Ó±í
 	int i;
 	ArcNode *p;
 	G = (AdjGraph*)malloc(sizeof(AdjGraph));
-	for (i = 0; i < MAX; i++) {						//¸øÁÚ½Ó±íÖĞËùÓĞÍ·½ÚµãµÄÖ¸ÕëÓòÖÃ³õÖµ
+	for (i = 0; i < MAX; i++) {						//ç»™é‚»æ¥è¡¨ä¸­æ‰€æœ‰å¤´èŠ‚ç‚¹çš„æŒ‡é’ˆåŸŸç½®åˆå€¼
 		G->adjlist[i].firstarc = NULL;
 	}
-    
+
 	int u, v;
 	int weight;
 
 	while (!feof(fp)) {
 		fscanf(fp, "%d%d%d\n", &u, &v, &weight);
-		// u,vÒÑ³öÏÖ¹ı£¬±ê¼ÇÎª1£¬Îª¸ÄÔì´øÈ¨Í¼×ö×¼±¸ 
+    
+		// u,vå·²å‡ºç°è¿‡ï¼Œæ ‡è®°ä¸º1ï¼Œä¸ºæ”¹é€ å¸¦æƒå›¾åšå‡†å¤‡ 
 		visited[u] = 1;
 		visited[v] = 1;
-		p = (ArcNode*)malloc(sizeof(ArcNode));	//´´½¨Ò»¸ö½Úµãp
+		p = (ArcNode*)malloc(sizeof(ArcNode));	//åˆ›å»ºä¸€ä¸ªèŠ‚ç‚¹p
 		p->id = 1; 
 		p->adjvex = v;
 		p->weight = weight;
-		p->nextarc = G->adjlist[u].firstarc;	//²ÉÓÃÍ·²å·¨²åÈë½Úµãp
+		p->nextarc = G->adjlist[u].firstarc;	//é‡‡ç”¨å¤´æ’æ³•æ’å…¥èŠ‚ç‚¹p
+
 		G->adjlist[u].firstarc = p;
 	}
 	fclose(fp);
@@ -43,7 +46,8 @@ AdjGraph* CreateAdj(char name[])    //½¨Á¢ÁÚ½Ó±í
 	G->e = numberOfEdges(name);
 	return G;
 }
-void DispAdj(AdjGraph* G)	//Êä³öÁÚ½Ó±íG
+
+void DispAdj(AdjGraph* G)	//è¾“å‡ºé‚»æ¥è¡¨G
 {
 	ArcNode* p;
 	for (int i = 0; i < MAX; i++)
@@ -52,22 +56,22 @@ void DispAdj(AdjGraph* G)	//Êä³öÁÚ½Ó±íG
 		printf("%3d: ", i);
 		while (p != NULL)
 		{
-			printf("%3d[%d]¡ú", p->adjvex, p->weight);
+			printf("%3d[%d]â†’", p->adjvex, p->weight);
 			p = p->nextarc;
 		}
-		printf("¡Ä\n");
+		printf("âˆ§\n");
 	}
 }
-void DestroyAdj(AdjGraph* G)	//Ïú»ÙÍ¼µÄÁÚ½Ó±í
+void DestroyAdj(AdjGraph*& G)	//é”€æ¯å›¾çš„é‚»æ¥è¡¨
 {
 	ArcNode* pre, * p;
-	for (int i = 0; i < MAX; i++)		//É¨ÃèËùÓĞµÄµ¥Á´±í
+	for (int i = 0; i < MAX; i++)		//æ‰«ææ‰€æœ‰çš„å•é“¾è¡¨
 	{
-		pre = G->adjlist[i].firstarc;	//pÖ¸ÏòµÚi¸öµ¥Á´±íµÄÊ×½Úµã
+		pre = G->adjlist[i].firstarc;	//pæŒ‡å‘ç¬¬iä¸ªå•é“¾è¡¨çš„é¦–èŠ‚ç‚¹
 		if (pre != NULL)
 		{
 			p = pre->nextarc;
-			while (p != NULL)			//ÊÍ·ÅµÚi¸öµ¥Á´±íµÄËùÓĞ±ß½Úµã
+			while (p != NULL)			//é‡Šæ”¾ç¬¬iä¸ªå•é“¾è¡¨çš„æ‰€æœ‰è¾¹èŠ‚ç‚¹
 			{
 				free(pre);
 				pre = p; p = p->nextarc;
@@ -75,10 +79,10 @@ void DestroyAdj(AdjGraph* G)	//Ïú»ÙÍ¼µÄÁÚ½Ó±í
 			free(pre);
 		}
 	}
-	free(G);						//ÊÍ·ÅÍ·½ÚµãÊı×é
+	free(G);						//é‡Šæ”¾å¤´èŠ‚ç‚¹æ•°ç»„
 }
 
-AdjGraph *TransformGraph(AdjGraph *G) //¸ÄÔì´øÈ¨Í¼ 
+AdjGraph *TransformGraph(AdjGraph *G) //æ”¹é€ å¸¦æƒå›¾ 
 {
     int temnum;
     int temp;
@@ -94,7 +98,7 @@ AdjGraph *TransformGraph(AdjGraph *G) //¸ÄÔì´øÈ¨Í¼
         ArcNode *p = G->adjlist[i].firstarc;
         ArcNode *ptem;
         ArcNode *pn;
-        // ¸ÄÔì´øÈ¨Í¼£¬ÕÒµ½µÚÒ»¸ö½Úµã£¬Èç¹ûËüµÄÈ¨Öµ´óÓÚÒ»ÔòÔö¼Óweight-1¸ö½Úµã 
+        // æ”¹é€ å¸¦æƒå›¾ï¼Œæ‰¾åˆ°ç¬¬ä¸€ä¸ªèŠ‚ç‚¹ï¼Œå¦‚æœå®ƒçš„æƒå€¼å¤§äºä¸€åˆ™å¢åŠ weight-1ä¸ªèŠ‚ç‚¹ 
         while (p != NULL) {
             temnum = p->adjvex;
             temweight = p->weight;
@@ -107,20 +111,20 @@ AdjGraph *TransformGraph(AdjGraph *G) //¸ÄÔì´øÈ¨Í¼
                 loop:
                     while (G->adjlist[k].firstarc != NULL) {
                         k++;
-                    }//ÕÒµ½Ò»¸ö¿ÕµÄ¿ÉÒÔ´æ´¢½ÚµãµÄ±àºÅ 
-                    if (k == temnum || visited[k] == 1) { // ÕÒµ½µÄ¿ÉÒÔ´¢´æµã±àºÅºÍÔ­À´µÄµã±àºÅ³åÍ» 
-                        k++;                               //¸Ã½Úµã±àºÅÒÑ³öÏÖ¹ı£¬k++ 
+                    }//æ‰¾åˆ°ä¸€ä¸ªç©ºçš„å¯ä»¥å­˜å‚¨èŠ‚ç‚¹çš„ç¼–å·  
+                    if (k == temnum || visited[k] == 1) { // æ‰¾åˆ°çš„å¯ä»¥å‚¨å­˜ç‚¹ç¼–å·å’ŒåŸæ¥çš„ç‚¹ç¼–å·å†²çª  
+                        k++;                               //è¯¥èŠ‚ç‚¹ç¼–å·å·²å‡ºç°è¿‡ï¼Œk++  
                         goto loop;
                     }
-                    ptem->adjvex = k;// Ö¸ÏòĞÂµÄ½Úµã 
-                    ptem->weight = 1;//ÓëĞÂ½Úµã¼äÈ¨ÖµÎª1 
+                    ptem->adjvex = k;// æŒ‡å‘æ–°çš„èŠ‚ç‚¹ 
+                    ptem->weight = 1;//ä¸æ–°èŠ‚ç‚¹é—´æƒå€¼ä¸º1 
                     ptem->id = 0;
-                    pn = (ArcNode *)malloc(sizeof(ArcNode));//ÎªĞÂ½Úµã¿ª±Ù¿Õ¼ä£¬ĞÂ½ÚµãÁ¬½Ó×ÅÏÂÒ»¸öĞÂ½Úµã 
+                    pn = (ArcNode *)malloc(sizeof(ArcNode));//ä¸ºæ–°èŠ‚ç‚¹å¼€è¾Ÿç©ºé—´ï¼Œæ–°èŠ‚ç‚¹è¿æ¥ç€ä¸‹ä¸€ä¸ªæ–°èŠ‚ç‚¹ 
                     pn->nextarc = NULL;
                     G->adjlist[k].firstarc = pn;
                     ptem = pn;
                 }
-                ptem->adjvex = temnum;//weight-1¸ö½ÚµãÔö¼Ó½áÊø£¬×îºóÒ»¸öĞÂ½ÚµãÖ¸ÏòÔ­À´pÁ¬½ÓµÄ½Úµã 
+                ptem->adjvex = temnum;//weight-1ä¸ªèŠ‚ç‚¹å¢åŠ ç»“æŸï¼Œæœ€åä¸€ä¸ªæ–°èŠ‚ç‚¹æŒ‡å‘åŸæ¥pè¿æ¥çš„èŠ‚ç‚¹
                 ptem->weight = 1;
                 ptem->id = 1;
             }
@@ -136,12 +140,12 @@ AdjGraph *TransformGraph(AdjGraph *G) //¸ÄÔì´øÈ¨Í¼
 
 
 
-//½ÓÊÜÒÔÎÄ¼şÃûÎªÍ¼±êÊ¶·ûµÄ `char` Êı×é£¬·µ»ØÍ¼ÖĞ±ßµÄÊıÁ¿
+//æ¥å—ä»¥æ–‡ä»¶åä¸ºå›¾æ ‡è¯†ç¬¦çš„ `char` æ•°ç»„ï¼Œè¿”å›å›¾ä¸­è¾¹çš„æ•°é‡
 int numberOfEdges(char name[])
 {
 	FILE* fp;
 	char buf[50];
-	int e;      //±ßÊı
+	int e;      //è¾¹æ•°
 	e = 0;
 	if (!(fp = fopen(name, "r"))) {
 		printf("Can not open %s\n", name);
@@ -158,18 +162,15 @@ int numberOfEdges(char name[])
 
 }
 
-//·µ»ØÍ¼ÖĞ¶¥µãµÄÊıÁ¿
+//è¿”å›å›¾ä¸­é¡¶ç‚¹çš„æ•°é‡
 int numberOfVertices(char name[])
 {
-	int node;    //¶¥µãÊı
+	int node;    //é¡¶ç‚¹æ•°
 	node = 0;
 	int v, u;
 	int weight;
-	int* Vnode = (int*)malloc(sizeof(int) * MAX);         //¼ÍÂ¼Vnode[i]ÊÇ·ñ´æÔÚµÄ±êÖ¾Êı×é
-	for (int i = 0; i < MAX; i++) { // ³õÊ¼»¯ 
-	    Vnode[i] = 0;
-    }
-	
+	int* Vnode = (int*)malloc(sizeof(int) * 410000);         //çºªå½•Vnode[i]æ˜¯å¦å­˜åœ¨çš„æ ‡å¿—æ•°ç»„
+	memset(Vnode, 0, sizeof(Vnode));
 	FILE* fp;
 	char buf[50];
 	if (!(fp = fopen(name, "r"))) {
@@ -194,15 +195,15 @@ int numberOfVertices(char name[])
 	return node;
 }
 
-//·µ»ØÍ¼ÖĞ Freeman's Network Centrality Öµ
-float freemanNetworkCentrality(char name[])
+//è¿”å›å›¾ä¸­ Freeman's Network Centrality å€¼
+int freemanNetworkCentrality(char name[])
 {
-    return 0;
+
 }
 
-//·µ»ØÍ¼ÖĞ Closeness Centrality Öµ
-float closenessCentrality(char name[], int node)
+//è¿”å›å›¾ä¸­ Closeness Centrality å€¼
+int closenessCentrality(char name[])
 {
-    return 0;
+
 }
 

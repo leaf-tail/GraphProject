@@ -1,65 +1,65 @@
 #ifndef STATS_H
 #define STATS_H
 
-#define INF 0x3f3f3f3f				//¶¨Òå¡Ş
+INF 0x3f3f3f3f				//å®šä¹‰âˆ
 				
-#define MAX 10000000              //×î´ó¶¥µã¸öÊı
+#define MAX 10000000             //æœ€å¤§é¡¶ç‚¹ä¸ªæ•°
 
 
 
-//ÒÔÏÂ¶¨ÒåÁÚ½Ó±íÀàĞÍ
+//ä»¥ä¸‹å®šä¹‰é‚»æ¥è¡¨ç±»å‹
 typedef struct ANode
 {
-	int adjvex;					//¸Ã±ßµÄÁÚ½Óµã±àºÅ
-	struct ANode* nextarc;		//Ö¸ÏòÏÂÒ»Ìõ±ßµÄÖ¸Õë
-	int weight;					//¸Ã±ßµÄÈ¨Öµ£¨ÓÃÕûĞÍ±íÊ¾£©
-	int id;                    // ÓÃÓÚ°Ñ´øÈ¨Í¼¸ÄÔì³ÉÎŞÈ¨Í¼£¬1´ú±íÊÇÔ­ÓĞ½Úµã£¬0´ú±íÊÇĞÂÔö½Úµã 
-} ArcNode;						//±ß½ÚµãÀàĞÍ
+	int adjvex;					//è¯¥è¾¹çš„é‚»æ¥ç‚¹ç¼–å·
+	struct ANode* nextarc;		//æŒ‡å‘ä¸‹ä¸€æ¡è¾¹çš„æŒ‡é’ˆ
+	int weight;					//è¯¥è¾¹çš„æƒå€¼ï¼ˆç”¨æ•´å‹è¡¨ç¤ºï¼‰
+	int id;                    // æ ‡è®°è¿™ä¸ªèŠ‚ç‚¹æ˜¯å¦æ˜¯é€šè¿‡æ”¹é€ æœ‰æƒå›¾å¾—åˆ°çš„ï¼Œ1ä¸ºå¦ï¼Œ0ä¸ºæ˜¯ 
+} ArcNode;						//è¾¹èŠ‚ç‚¹ç±»å‹
 
 typedef struct Vnode
 {
-	int count;					//´æ·Å¶¥µãÈë¶È,½ö½öÓÃÓÚÍØÆËÅÅĞò
-	ArcNode* firstarc;			//Ö¸ÏòµÚÒ»Ìõ±ß
-} VNode;						//ÁÚ½Ó±íÍ·½ÚµãÀàĞÍ
+	int count;					//å­˜æ”¾é¡¶ç‚¹å…¥åº¦,ä»…ä»…ç”¨äºæ‹“æ‰‘æ’åº
+	ArcNode* firstarc;			//æŒ‡å‘ç¬¬ä¸€æ¡è¾¹
+} VNode;						//é‚»æ¥è¡¨å¤´èŠ‚ç‚¹ç±»å‹
 
 typedef struct
 {
-	VNode adjlist[MAX];		//ÁÚ½Ó±íÍ·½ÚµãÊı×é
-	int n, e;					//Í¼ÖĞ¶¥µãÊınºÍ±ßÊıe
-} AdjGraph;						//ÍêÕûµÄÍ¼ÁÚ½Ó±íÀàĞÍ
+	VNode adjlist[MAX];		//é‚»æ¥è¡¨å¤´èŠ‚ç‚¹æ•°ç»„
+	int n, e;					//å›¾ä¸­é¡¶ç‚¹æ•°nå’Œè¾¹æ•°e
+} AdjGraph;						//å®Œæ•´çš„å›¾é‚»æ¥è¡¨ç±»å‹
 
 typedef struct QNode {
-    int n;                  // ´æ·ÅÊı¾İ
-    int pre;                //´æ·Å¸¸µãµÄÏÂ±ê 
-    int id;              // ±ê¼ÇÕâ¸ö½ÚµãÊÇ·ñÊÇÍ¨¹ı¸ÄÔìÓĞÈ¨Í¼µÃµ½µÄ£¬1Îª·ñ£¬0ÎªÊÇ 
+    int n;                 // å­˜æ”¾æ•°æ®
+    int pre;                //å­˜æ”¾çˆ¶ç‚¹çš„ä¸‹æ ‡ 
+    int id;              // æ ‡è®°è¿™ä¸ªèŠ‚ç‚¹æ˜¯å¦æ˜¯é€šè¿‡æ”¹é€ æœ‰æƒå›¾å¾—åˆ°çš„ï¼Œ1ä¸ºå¦ï¼Œ0ä¸ºæ˜¯
 }QNode;
 
 typedef struct Queue {
     QNode q[MAX];
-    int head;               // ¶ÓÍ·Ö¸Õë
-    int rear;               // ¶ÓÎ²Ö¸Õë 
+    int head;               // é˜Ÿå¤´æŒ‡é’ˆ
+    int rear;               // é˜Ÿå°¾æŒ‡é’ˆ  
 }Queue; 
 
-Queue queue;                //¶¨Òå¶ÓÁĞ 
-//int visited[MAX];           //¶¨Òå±ê¼ÇÊı×é 
+Queue queue;                //å®šä¹‰é˜Ÿåˆ— 
+//int visited[MAX];           //å®šä¹‰æ ‡è®°æ•°ç»„ 
 
-//ÁÚ½Ó±íµÄ»ù±¾ÔËËãËã·¨
-AdjGraph* CreateAdj(char name[]); //´´½¨Í¼µÄÁÚ½Ó±í
-void DispAdj(AdjGraph* G);	//Êä³öÁÚ½Ó±íG
-void DestroyAdj(AdjGraph* G);	//Ïú»ÙÍ¼µÄÁÚ½Ó±í
-AdjGraph *TransformGraph(AdjGraph *G); //¸ÄÔì´øÈ¨Í¼ 
+//é‚»æ¥è¡¨çš„åŸºæœ¬è¿ç®—ç®—æ³•
+AdjGraph* CreateAdj(char name[]); //åˆ›å»ºå›¾çš„é‚»æ¥è¡¨
+void DispAdj(AdjGraph* G);	//è¾“å‡ºé‚»æ¥è¡¨G
+void DestroyAdj(AdjGraph* G);	//é”€æ¯å›¾çš„é‚»æ¥è¡¨
+AdjGraph *TransformGraph(AdjGraph *G);  //æ”¹é€ å¸¦æƒå›¾ 
 
 
-//½ÓÊÜÒÔÎÄ¼şÃûÎªÍ¼±êÊ¶·ûµÄ `char` Êı×é£¬·µ»ØÍ¼ÖĞ±ßµÄÊıÁ¿
+//æ¥å—ä»¥æ–‡ä»¶åä¸ºå›¾æ ‡è¯†ç¬¦çš„ `char` æ•°ç»„ï¼Œè¿”å›å›¾ä¸­è¾¹çš„æ•°é‡
 int numberOfEdges(char name[]);         
 
-//·µ»ØÍ¼ÖĞ¶¥µãµÄÊıÁ¿
+//è¿”å›å›¾ä¸­é¡¶ç‚¹çš„æ•°é‡
 int numberOfVertices(char name[]);       
 
-//·µ»ØÍ¼ÖĞ Freeman's Network Centrality Öµ
+//è¿”å›å›¾ä¸­ Freeman's Network Centrality å€¼Öµ
 float freemanNetworkCentrality(char name[]);
 
-//·µ»ØÍ¼ÖĞ Closeness Centrality Öµ
+//è¿”å›å›¾ä¸­ Closeness Centrality å€¼Öµ
 float closenessCentrality(char name[], int node);
 
 #endif
