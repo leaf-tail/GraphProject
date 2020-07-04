@@ -7,8 +7,9 @@
 
 
 //----邻接表的基本运算算法------------------------------------
-void CreateAdj(char name[], AdjGraph*& G)    //建立邻接表
+AdjGraph* CreateAdj(char name[])    //建立邻接表
 {
+	AdjGraph* G;
 	FILE* fp;
 	if (!(fp = fopen(name, "r"))) {
 		printf("Can not open %s\n", name);
@@ -35,6 +36,7 @@ void CreateAdj(char name[], AdjGraph*& G)    //建立邻接表
 	fclose(fp);
 	G->n = numberOfVertices(name);
 	G->e = numberOfEdges(name);
+	return G;
 }
 void DispAdj(AdjGraph* G)	//输出邻接表G
 {
