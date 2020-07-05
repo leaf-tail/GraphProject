@@ -1,7 +1,7 @@
 #ifndef STATS_H
 #define STATS_H
 
-INF 0x3f3f3f3f				//定义∞
+#define INF 0x3f3f3f3f				//定义∞
 				
 #define MAX 10000000             //最大顶点个数
 
