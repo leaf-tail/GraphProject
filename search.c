@@ -287,7 +287,7 @@ void Dijkstra(AdjGraph* G, int u, int v)
 	d++;
 	path_putout_Dij[0] = d ;                //p[0]存放路径中顶点个数
 	for (i = 1; i <= d + 1; i++) {          //p[1]-p[d+1]存放路径
-		path_putout_Dij[i] = dist[d + 1 - i];
+		path_putout_Dij[i] = dist[d - i];
 	}
 }
 
