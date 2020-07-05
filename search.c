@@ -13,95 +13,6 @@ int dist[MAX];//最短路径长度数组
 int S[MAX];//标记数组
 int path_putout_Dij[MAX];
 
-char* shortestPath(int u, int v, char alogrithm[], char name[])
-{
-    AdjGraph *G;
-    
-    for (int i = 0; i < MAX; i++) { //初始化全局标记数组
-        visited[i] = 0; 
-    }
-    
-    G = CreateAdj(name);
-    char *res;
-    
-    if (strcmp(alogrithm, "DFS") == 0) {
-        for (int i = 0; i < MAX; i++) { //初始化全局标记数组
-            visited[i] = 0; 
-        }
-        DFS(G, u, v, -1);
-        int  j = 0;
-        char tem_str[500];
-        int  count_len;
-        int  temindex = 0;
-        for (int i = 1; i <= path_putout_DFS[0]; i++) {
-            count_len = 0;
-            int tempn = path_putout_DFS[i];
-            if (tempn == 0) {
-                tem_str[500] = '0';
-                count_len++;
-            }
-            while (tempn != 0) {
-                tem_str[count_len] = tempn % 10 + '0';
-                tempn = tempn / 10;
-                count_len++;
-            }
-            while (count_len > 0) {
-                res[temindex] = tem_str[count_len - 1];
-                temindex++;
-                count_len--;
-            }
-            if (j > 0) {
-                res[temindex] = '-';
-                temindex++;
-                res[temindex] = '>';
-                temindex++;
-            }
-        }
-        res[temindex] = '\0';
-    } else if (strcmp(alogrithm, "BFS") == 0) {
-        //DispAdj(G);
-        G = TransformGraph(G);
-        //DispAdj(G);
-        res = BFS(u, v, name, G);
-    } else {
-        for (int i = 0; i < MAX; i++) { //初始化全局标记数组
-            visited[i] = 0; 
-        }
-        Dijkstra(G, u, v);
-        int  j = 0;
-        char tem_str[500];
-        int  count_len;
-        int  temindex = 0;
-        for (int i = 1; i <= path_putout_Dij[0]; i++) {
-            count_len = 0;
-            int tempn = path_putout_Dij[i];
-            if (tempn == 0) {
-                tem_str[500] = '0';
-                count_len++;
-            }
-            while (tempn != 0) {
-                tem_str[count_len] = tempn % 10 + '0';
-                tempn = tempn / 10;
-                count_len++;
-            }
-            while (count_len > 0) {
-                res[temindex] = tem_str[count_len - 1];
-                temindex++;
-                count_len--;
-            }
-            if (j > 0) {
-                res[temindex] = '-';
-                temindex++;
-                res[temindex] = '>';
-                temindex++;
-            }
-        }
-        res[temindex] = '\0';
-    }
-      
-    return res;
-}
-
 char* BFS(int u, int v, char name[], AdjGraph *G)
 {
     int   index;
@@ -291,3 +202,91 @@ void Dijkstra(AdjGraph* G, int u, int v)
 	}
 }
 
+char* shortestPath(int u, int v, char alogrithm[], char name[])
+{
+    AdjGraph *G;
+    
+    for (int i = 0; i < MAX; i++) { //初始化全局标记数组
+        visited[i] = 0; 
+    }
+    
+    G = CreateAdj(name);
+    char *res;
+    
+    if (strcmp(alogrithm, "DFS") == 0) {
+        for (int i = 0; i < MAX; i++) { //初始化全局标记数组
+            visited[i] = 0; 
+        }
+        DFS(G, u, v, -1);
+        int  j = 0;
+        char tem_str[500];
+        int  count_len;
+        int  temindex = 0;
+        for (int i = 1; i <= path_putout_DFS[0]; i++) {
+            count_len = 0;
+            int tempn = path_putout_DFS[i];
+            if (tempn == 0) {
+                tem_str[count_len] = '0';
+                count_len++;
+            }
+            while (tempn != 0) {
+                tem_str[count_len] = tempn % 10 + '0';
+                tempn = tempn / 10;
+                count_len++;
+            }
+            while (count_len > 0) {
+                res[temindex] = tem_str[count_len - 1];
+                temindex++;
+                count_len--;
+            }
+            if (i < path_putou_DFS) {
+                res[temindex] = '-';
+                temindex++;
+                res[temindex] = '>';
+                temindex++;
+            }
+        }
+        res[temindex] = '\0';
+    } else if (strcmp(alogrithm, "BFS") == 0) {
+        //DispAdj(G);
+        G = TransformGraph(G);
+        //DispAdj(G);
+        res = BFS(u, v, name, G);
+    } else {
+        for (int i = 0; i < MAX; i++) { //初始化全局标记数组
+            visited[i] = 0; 
+        }
+        Dijkstra(G, u, v);
+        int  j = 0;
+        char tem_str[500];
+        int  count_len;
+        int  temindex = 0;
+        for (int i = 1; i <= path_putout_Dij[0]; i++) {
+            count_len = 0;
+            int tempn = path_putout_Dij[i];
+            if (tempn == 0) {
+                tem_str[count_len] = '0';
+                count_len++;
+            }
+            while (tempn != 0) {
+                tem_str[count_len] = tempn % 10 + '0';
+                tempn = tempn / 10;
+                count_len++;
+            }
+            while (count_len > 0) {
+                res[temindex] = tem_str[count_len - 1];
+                temindex++;
+                count_len--;
+            }
+            if (i < path_putout_Dij) {
+                res[temindex] = '-';
+                temindex++;
+                res[temindex] = '>';
+                temindex++;
+            }
+        }
+        res[temindex] = '\0';
+    }
+      
+    return res;
+}
