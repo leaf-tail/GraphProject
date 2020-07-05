@@ -8,10 +8,10 @@
 int path_DFS[MAX];      //DFS算法中纪录路径的数组
 int path_putout_DFS[MAX];
 
-int path_Dij[MAX];//最短长度数组，路径数组
-int dist[MAX];//最短路径长度数组
-int S[MAX];//标记数组
-int path_putout_Dij[MAX];
+int path_Dij[MAX_];//最短长度数组，路径数组
+int dist[MAX_];//最短路径长度数组
+int S[MAX_];//标记数组
+int path_putout_Dij[MAX_];
 
 char* BFS(int u, int v, char name[], AdjGraph *G)
 {
@@ -131,7 +131,7 @@ void Dijkstra(AdjGraph* G, int u, int v)
 {
 	int mindis;
 	int i, j, x;
-	for (i = 0; i < MAX; i++) {
+	for (i = 0; i < MAX_; i++) {
 		S[i] = 0;                           //S[ ]置空
 		dist[i] = INF;
 	}
@@ -143,7 +143,7 @@ void Dijkstra(AdjGraph* G, int u, int v)
 		p = p->nextarc;
 	}
 
-	for (i = 0; i < MAX; i++) {             //路径初始化
+	for (i = 0; i < MAX_; i++) {             //路径初始化
 		if (dist[i] < INF) {
 			path_Dij[i] = u;                    //顶点u到顶点i有边时，置顶点i的前驱节点为u
 		}
@@ -153,9 +153,9 @@ void Dijkstra(AdjGraph* G, int u, int v)
 	}
 	S[u] = 1;
 	path_Dij[u] = 0;                            //源点u放入S中
-	for (i = 0; i < MAX; i++) {             //循环求出所有最短路径
+	for (i = 0; i < MAX_; i++) {             //循环求出所有最短路径
 		mindis = INF;                       //mindis置最大初值值
-		for (j = 0; j < MAX; j++) {
+		for (j = 0; j < MAX_; j++) {
 			if (S[j] == 0 && dist[j] < mindis) {        //选取不在S中且具有最小最短路径长度的顶点x
 				x = j;
 				mindis = dist[j];
