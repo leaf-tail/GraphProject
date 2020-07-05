@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int visited[MAX];
+//int visited[MAX];
 int path_DFS[MAX];      //DFS算法中纪录路径的数组
 int path_putout_DFS[MAX];
 
