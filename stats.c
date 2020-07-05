@@ -47,6 +47,39 @@ AdjGraph* CreateAdj(char name[])    //建立邻接表
 	return G;
 }
 
+
+AdjGraph* CreatereAdj(char name[])    //建立逆邻接表
+{
+	AdjGraph* G;
+	FILE* fp;
+	if (!(fp = fopen(name, "r"))) {
+		printf("Can not open %s\n", name);
+		exit(0);
+	}
+
+	int i;
+	ArcNode* p;
+	G = (AdjGraph*)malloc(sizeof(AdjGraph));
+	for (i = 0; i < MAX; i++)						//给邻接表中所有头节点的指针域置初值
+		G->adjlist[i].firstarc = NULL;
+
+	int u, v;
+	int weight;
+
+	while (!feof(fp)) {
+		fscanf(fp, "%d%d%d\n", &u, &v, &weight);
+		p = (ArcNode*)malloc(sizeof(ArcNode));	//创建一个节点p
+		p->adjvex = u;
+		p->weight = weight;
+		p->nextarc = G->adjlist[v].firstarc;	//采用头插法插入节点p
+		G->adjlist[v].firstarc = p;
+	}
+	fclose(fp);
+	G->n = 0;
+	G->e = 0;
+	return G;
+}
+
 void DispAdj(AdjGraph* G)	//输出邻接表G
 {
 	ArcNode* p;
@@ -201,7 +234,88 @@ int numberOfVertices(char name[])
 //返回图中 Freeman's Network Centrality 值
 float freemanNetworkCentrality(char name[])
 {
-    return 0;
+	float result = 0;
+
+	AdjGraph* G;
+	G = CreateAdj(name);                //建立邻接表
+
+	int i;
+	int degree[MAX];                    //纪录度的数组
+	for (i = 0; i < MAX; i++) {
+		degree[i] = 0;
+	}
+
+	ArcNode* p;                         //出度
+	for (i = 0; i < MAX; i++) {
+		p = G->adjlist[i].firstarc;
+		while (p != NULL) {
+			degree[i]++;
+			degree[p->adjvex]++;
+			p = p->nextarc;
+		}
+	}
+	 
+	AdjGraph* reG;                       //入度
+	reG = CreatereAdj(name);
+	ArcNode* q;
+	for (i = 0; i < MAX; i++) {
+		q = reG->adjlist[i].firstarc;
+		while (q != NULL) {
+			degree[i]++;
+			degree[q->adjvex]++;
+			q = q->nextarc;
+		}
+	}
+
+	for (i = 0; i < MAX; i++) {         
+		degree[i] /= 2;
+	}
+
+	for (i = 0; i < MAX; i++) {              //去重
+		p = G->adjlist[i].firstarc;
+		q = reG->adjlist[i].firstarc;
+		while (p != NULL && q != NULL) {
+			int pnode = p->adjvex;
+			int qnode = q->adjvex;
+			if (pnode == qnode) {
+				degree[i]--;
+				p = p->nextarc;
+				q = reG->adjlist[i].firstarc;
+			}
+			else {
+				q = q->nextarc;
+			}
+		}
+	}
+
+	int tmp = degree[0];             //找最大度的点target
+	int target = 0;
+	for (i = 1; i < MAX; i++) {
+		if (degree[i] > tmp) {
+			tmp = degree[i];
+			target = i;
+		}
+	}
+	
+	DestroyAdj(G);
+	DestroyAdj(reG);
+	
+	int n;                           //求顶点个数
+	n = numberOfVertices(name);
+
+	tmp = 0;
+	for (i = 0; i < MAX; i++) {
+		if (i!=target) {
+			if (degree[i] != 0) {
+				tmp += degree[target] - degree[i];
+			}		
+		}
+	}
+	//printf("%d\n%d\n", target, n);
+
+	result = tmp / 1.0;
+	result = result / (n - 1) / (n - 2);
+	return result;
 }
 
 //返回图中 Closeness Centrality 值
