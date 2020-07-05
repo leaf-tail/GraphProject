@@ -4,7 +4,7 @@
 #define INF 0x3f3f3f3f				//定义∞
 				
 #define MAX 10000000             //最大顶点个数
-#define MAX_ 500000		// 用于Dijk算法，目前为未优化，太大的数据跑不了
+#define MAX_ 450000		// 用于Dijk算法，目前为未优化，太大的数据跑不了
 
 //以下定义邻接表类型
 typedef struct ANode
