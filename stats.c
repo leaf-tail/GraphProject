@@ -169,8 +169,11 @@ int numberOfVertices(char name[])
 	node = 0;
 	int v, u;
 	int weight;
-	int* Vnode = (int*)malloc(sizeof(int) * 410000);         //纪录Vnode[i]是否存在的标志数组
-	memset(Vnode, 0, sizeof(Vnode));
+	int* Vnode = (int*)malloc(sizeof(int) * MAX);         //纪录Vnode[i]是否存在的标志数组
+	for (int i = 0; i < MAX; i++) { // 初始化 
+	    Vnode[i] = 0;
+        }
+	
 	FILE* fp;
 	char buf[50];
 	if (!(fp = fopen(name, "r"))) {
@@ -196,14 +199,14 @@ int numberOfVertices(char name[])
 }
 
 //返回图中 Freeman's Network Centrality 值
-int freemanNetworkCentrality(char name[])
+float freemanNetworkCentrality(char name[])
 {
-
+    return 0;
 }
 
 //返回图中 Closeness Centrality 值
-int closenessCentrality(char name[])
+float closenessCentrality(char name[], int node)
 {
-
+    return 0;
 }
 
