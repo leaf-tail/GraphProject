@@ -41,7 +41,7 @@ typedef struct Queue {
 }Queue; 
 
 Queue queue;                //定义队列 
-//int visited[MAX];           //定义标记数组 
+int visited[MAX];           //定义标记数组 
 
 //邻接表的基本运算算法
 AdjGraph* CreateAdj(char name[]); //创建图的邻接表
