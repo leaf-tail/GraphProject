@@ -217,6 +217,7 @@ char* shortestPath(int u, int v, char alogrithm[], char name[])
         for (int i = 0; i < MAX; i++) { //初始化全局标记数组
             visited[i] = 0; 
         }
+	res = (char *)malloc(sizeof(char) * MAX);
         DFS(G, u, v, -1);
         int  j = 0;
         char tem_str[500];
@@ -256,6 +257,7 @@ char* shortestPath(int u, int v, char alogrithm[], char name[])
         for (int i = 0; i < MAX; i++) { //初始化全局标记数组
             visited[i] = 0; 
         }
+	res = (char *)malloc(sizeof(char) * MAX);
         Dijkstra(G, u, v);
         int  j = 0;
         char tem_str[500];
