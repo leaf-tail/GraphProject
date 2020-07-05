@@ -240,7 +240,7 @@ float freemanNetworkCentrality(char name[])
 	G = CreateAdj(name);                //建立邻接表
 
 	int i;
-	int degree[MAX];                    //纪录度的数组
+	int *degree = (int *)malloc(sizeof(int) * MAX);                    //纪录度的数组
 	for (i = 0; i < MAX; i++) {
 		degree[i] = 0;
 	}
