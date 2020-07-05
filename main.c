@@ -7,13 +7,13 @@
 
 int main(int argc, char *argv[])
 {
-    int   op = 0; // ±íÊ¾ÊäÈëµÄ²ÎÊıËù´ú±íµÄ²Ù×÷
-    int   temp; // ÁÙÊ±±äÁ¿£¬ÓÃÀ´´æ´¢ÖĞ¼äÁ¿ 
+    int   op = 0; // è¡¨ç¤ºè¾“å…¥çš„å‚æ•°æ‰€ä»£è¡¨çš„æ“ä½œ
+    int   temp; // ä¸´æ—¶å˜é‡ï¼Œç”¨æ¥å­˜å‚¨ä¸­é—´é‡ 
     int   result_int;
     float result_float;
     char *result_char;
     
-    //²âÊÔ 
+    //æµ‹è¯• 
     /*for (int i = 0; i < 19; i++) {
         printf("%s\n", SunTou[i]);
     }*/
@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
     }*/ 
     if (argc == 2) {
         if (strcmp(argv[1], "-h") == 0 || strcmp(argv[1], "--help") == 0) {
-            op = 1; // opÎª1£¬Êä³ö°ïÖú²Ëµ¥ 
+            op = 1; // opä¸º1ï¼Œè¾“å‡ºå¸®åŠ©èœå• 
         } else if (strcmp(argv[1], "-j") == 0) {
             for (int i = 0; i < 19; i++) {
                 printf("%s\n", SunTou[i]);
@@ -72,7 +72,7 @@ int main(int argc, char *argv[])
                 int u = (int)(*argv[6] - '0');
                 int v = (int)(*argv[8] - '0');
                 result_char = shortestPath(u, v, argv[4], argv[2]);
-                printf("%s", result_char);
+                printf("%s\n", result_char);
             } else {
                 printf("Not Found the Command.\n");
             }
