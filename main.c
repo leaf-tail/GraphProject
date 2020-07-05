@@ -61,7 +61,7 @@ int main(int argc, char *argv[])
             } else if (strcmp(argv[4], "closeness") == 0) {
                 temp = (int)(*argv[5] - '0');
                 result_float = closenessCentrality(argv[2], temp);
-                printf("the Closeness Centrality is %f\n", result_float);
+                printf(" Still in development");
             } else {
                 printf("Not Found The Command.\n");
             }
