@@ -239,7 +239,7 @@ char* shortestPath(int u, int v, char alogrithm[], char name[])
                 temindex++;
                 count_len--;
             }
-            if (i < path_putou_DFS) {
+            if (i < path_putout_DFS[0]) {
                 res[temindex] = '-';
                 temindex++;
                 res[temindex] = '>';
@@ -278,7 +278,7 @@ char* shortestPath(int u, int v, char alogrithm[], char name[])
                 temindex++;
                 count_len--;
             }
-            if (i < path_putout_Dij) {
+            if (i < path_putout_Dij[0]) {
                 res[temindex] = '-';
                 temindex++;
                 res[temindex] = '>';
