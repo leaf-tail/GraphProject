@@ -62,7 +62,7 @@ void DispAdj(AdjGraph* G)	//输出邻接表G
 		printf("∧\n");
 	}
 }
-void DestroyAdj(AdjGraph*& G)	//销毁图的邻接表
+void DestroyAdj(AdjGraph* G)	//销毁图的邻接表
 {
 	ArcNode* pre, * p;
 	for (int i = 0; i < MAX; i++)		//扫描所有的单链表
