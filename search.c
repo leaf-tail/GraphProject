@@ -101,6 +101,7 @@ char* BFS(int u, int v, char name[], AdjGraph *G)
 }
 
 
+//参考了数据结构教程（第五版）上机实验指导 李春葆著
 void DFS(AdjGraph* G, int u, int v, int d)      //递归DFS（d纪录路径数，初次引用时值为-1 最终结果存在path_putout内）
 {
 	int w, i;
@@ -127,6 +128,7 @@ void DFS(AdjGraph* G, int u, int v, int d)      //递归DFS（d纪录路径数�
 
 }
 
+//参考了数据结构教程（第五版）上机实验指导 李春葆著
 void Dijkstra(AdjGraph* G, int u, int v)
 {
 	int mindis;
